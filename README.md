@@ -6,7 +6,7 @@ A master's dissertation project with two modules joined by one theme: a system t
 - **Module 2 – Scene generation:** automatic cut-out of an object from a photo and its realistic placement in another background, with colour harmonization and a shadow. The use case demonstrated: museum objects placed in other halls.
 - **Modules 1 + 2 together:** in front of the camera, whoever holds out their hands gets a museum object in them, at its real size and harmonized with the camera image, in real time.
 
-The detailed results of both modules (figures and tables) are in `results.html` (in Romanian), which opens in a browser.
+The detailed results of both modules (figures and tables) are in `results.html`, also online: **[yustulinu.github.io/Disertation/results.html](https://yustulinu.github.io/Disertation/results.html)**.
 
 ## Project structure
 
@@ -30,7 +30,7 @@ photos/                  the photos of Module 2: vases, weapons, armour, helmets
                          Wikimedia Commons; CREDITS.md lists the author and licence of every image
 images/                  app screenshots: python_app/ (the Python demos) and qt_cpp_app/ (the Qt/C++ app);
                          the S key in the apps saves straight into these folders
-results.html             the results of both modules (in Romanian; opens in a browser)
+results.html             the results of both modules, with figures and tables (opens in a browser)
 ```
 
 ## Setup
