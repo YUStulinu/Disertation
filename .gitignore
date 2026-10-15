@@ -1,0 +1,16 @@
+# Python environment and caches
+python_research/venv/
+__pycache__/
+*.pyc
+
+# C++ build output
+build/
+
+# Weights downloaded on first use (YOLOv8, SAM 2.1, Real-ESRGAN)
+python_research/models/yolov8*-seg.pt
+python_research/models/sam2.1_b.pt
+python_research/models/RealESRGAN_x4plus.pth
+
+# Recordings of the live demo
+*.mp4
+images/python_app/demo/

@@ -1,0 +1,13 @@
+{
+  "cmake.configureSettings": {
+    "CMAKE_PREFIX_PATH": "C:/Qt/6.11.1/msvc2022_64",
+    "OpenCV_DIR": "C:/OpenCV/opencv/build/x64/vc16/lib",
+    "ORT_DIR": "C:/onnxruntime/onnxruntime-win-x64-1.27.0"
+  },
+  "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+  "cmake.sourceDirectory": "C:/Master/disertatie/cpp_app",
+  "C_Cpp.errorSquiggles": "enabled",
+  "python.defaultInterpreterPath": "${workspaceFolder}/python_research/venv/Scripts/python.exe",
+  "python.terminal.activateEnvironment": true,
+  "python.analysis.extraPaths": ["${workspaceFolder}/python_research"]
+}

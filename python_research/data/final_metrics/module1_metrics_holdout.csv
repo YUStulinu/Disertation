@@ -1,0 +1,11 @@
+protocol,held-out clips
+class,precision,recall,f1,support_windows
+falling,1.0000,0.9737,0.9867,38
+lifting_object,1.0000,1.0000,1.0000,38
+sitting,1.0000,1.0000,1.0000,38
+walking,0.9744,1.0000,0.9870,38
+macro avg,0.9936,0.9934,0.9934,152
+weighted avg,0.9936,0.9934,0.9934,152
+window_accuracy,0.9934
+clip_accuracy,1.0000
+mcc,0.9913

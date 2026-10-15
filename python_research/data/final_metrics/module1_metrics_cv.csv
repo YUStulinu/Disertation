@@ -1,0 +1,18 @@
+protocol,5-fold cross-validation
+class,precision,recall,f1,support_windows
+falling,0.8293,0.8947,0.8608,190
+idle,0.9227,0.9421,0.9323,190
+lifting_object,0.8768,0.9737,0.9227,190
+sitting,0.9110,0.7000,0.7917,190
+walking,0.8969,0.9158,0.9062,190
+macro avg,0.8873,0.8853,0.8827,950
+weighted avg,0.8873,0.8853,0.8827,950
+window_accuracy,0.8853
+clip_accuracy,0.9400
+mcc,0.8581
+condition,frame_accuracy,trial_accuracy,trials
+far_distance,0.9525,1.0000,5
+fast,0.9579,1.0000,5
+low_light,0.9682,1.0000,5
+normal,0.9983,1.0000,5
+side_angle,0.9219,1.0000,5

@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rezultate disertație</title>
+<style>
+  :root { --bg: #fcfcfb; --card: #ffffff; --ink: #0b0b0b; --ink2: #52514e; --line: #e4e3df; --accent: #2a78d6; --bad: #e34948; --good: #1baf7a; --prev: #8a8984; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #1a1a19; --card: #242423; --ink: #ffffff; --ink2: #c3c2b7; --line: #3a3a38; --accent: #3987e5; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 system-ui, "Segoe UI", sans-serif; }
+  main { max-width: 1240px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 28px; margin: 0 0 4px; }
+  h2 { font-size: 22px; margin: 48px 0 8px; padding-top: 16px; border-top: 1px solid var(--line); }
+  h3 { font-size: 17px; margin: 28px 0 8px; }
+  p, li { color: var(--ink2); max-width: 85ch; }
+  a { color: var(--accent); }
+  nav { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 16px 0 0; }
+  nav a { text-decoration: none; }
+  figure { margin: 12px 0 20px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+  figure img { display: block; width: 100%; height: auto; border-radius: 4px; }
+  figcaption { color: var(--ink2); font-size: 14px; margin-top: 8px; }
+  .pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+  .thumbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .thumbs figure { margin: 0; }
+  .thumbs img { height: 200px; object-fit: contain; }
+  .shots { columns: 4 230px; column-gap: 12px; }
+  .shots figure { break-inside: avoid; margin: 0 0 12px; }
+  figure a { display: block; }
+  .duo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .single { max-width: 760px; }
+  .cmd { width: fit-content; max-width: 100%; overflow-x: auto; background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; margin: 8px 0 12px; font-size: 14px; }
+  @media (max-width: 640px) { .duo { grid-template-columns: 1fr; } }
+  .tag { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 99px; color: #fff; margin-right: 6px; }
+  .old { background: var(--bad); } .new { background: var(--good); } .prev { background: var(--prev); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; margin: 8px 0 16px; font-size: 15px; }
+  th, td { text-align: left; padding: 6px 16px 6px 0; border-bottom: 1px solid var(--line); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.best td { font-weight: 700; }
+  ol li, ul li { margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<main>
+<h1>Analiza și generarea scenelor vizuale prin tehnici de deep learning</h1>
+<p>Rezultatele ambelor module. Toate figurile sunt fișiere din <code>python_research/data/</code>, regenerate cu codul actual (Modulul 1: 11 octombrie 2026; demonstrația cu obiecte în mâini: 13 octombrie 2026; Modulul 2: 8 octombrie 2026), pe un laptop cu RTX 2060 (6 GB).</p>
+<nav>
+  <a href="#m1">Modulul 1 – acțiuni</a>
+  <a href="#hands">Obiecte în mâini</a>
+  <a href="#photos">Fotografiile noi</a>
+  <a href="#upgrade">Înainte vs acum</a>
+  <a href="#depth">Scara din adâncime</a>
+  <a href="#gallery">Galerie</a>
+  <a href="#relight">Reiluminare</a>
+  <a href="#bench">Benchmark</a>
+  <a href="#seg">Segmentare</a>
+  <a href="#inpaint">Inpainting</a>
+  <a href="#shadow">Umbre și reflexie</a>
+  <a href="#credits">Surse</a>
+</nav>
+
+<h2 id="m1">Modulul 1 – Recunoașterea acțiunilor</h2>
+<p>Cinci acțiuni – cădere, stat pe loc („idle”), ridicarea unui obiect, așezare, mers – învățate din 50 de clipuri de câte 5 secunde (câte 10 pe acțiune). Evaluare prin validare încrucișată în 5 pași, pe clipuri nevăzute la antrenare. Modelul final (LSTM cu viteza punctelor calculată în rețea, fereastră de ~1,9 s eșantionată în timp) atinge <b>88,5%</b> acuratețe pe ferestre, <b>94,0%</b> pe clipuri, F1 macro <b>0,88</b> și MCC <b>0,86</b>.</p>
+<div class="scroll"><table>
+<tr><th>Metrică (validare încrucișată)</th><th class="num">Model inițial, 4 acțiuni</th><th class="num">Model final, 4 acțiuni</th><th class="num">Model final, 5 acțiuni</th></tr>
+<tr><td>Acuratețe pe ferestre</td><td class="num">78,4%</td><td class="num">84,2%</td><td class="num"><b>88,5%</b></td></tr>
+<tr><td>Acuratețe pe clipuri (vot majoritar)</td><td class="num">80,0%</td><td class="num">87,5%</td><td class="num"><b>94,0%</b></td></tr>
+<tr><td>F1 macro</td><td class="num">0,77</td><td class="num">0,83</td><td class="num"><b>0,88</b></td></tr>
+<tr><td>MCC</td><td class="num">0,71</td><td class="num">0,80</td><td class="num"><b>0,86</b></td></tr>
+</table></div>
+<p>Clasa „idle” (stat pe loc, inclusiv cu mâinile întinse, ca atunci când ții un obiect) a îmbunătățit și celelalte clase, pentru că modelul nu mai trebuie să încadreze nemișcarea într-o acțiune; ea însăși are F1 0,93. Pe calea live (netezire și pragul de 60%), pe clipuri nevăzute, statul pe loc este afișat „idle” în 96% din timp și „uncertain” doar în 2%; 47 din 50 de clipuri sunt recunoscute corect.</p>
+<div class="pair">
+  <figure><img src="python_research/data/final_metrics/module1_confusion_cv.png" alt="Matricea de confuzie"><figcaption>Matricea de confuzie (validare încrucișată, 5 acțiuni). „Sitting” rămâne cea mai grea clasă (recall 70%, față de 53% fără „idle”), confundată cu „falling” și „lifting_object”: toate se termină cu persoana jos sau aplecată.</figcaption></figure>
+  <figure><img src="python_research/data/final_metrics/module1_f1_cv.png" alt="F1 pe clasă"><figcaption>Scorul F1 pentru fiecare acțiune.</figcaption></figure>
+</div>
+<h3>Testul de robustețe live</h3>
+<p>Modelul final, testat live cu camera în 5 condiții, cu încercări cronometrate (3 s de pregătire, 4 s înregistrate, aceeași cale ca aplicația C++). Câte o încercare pentru fiecare acțiune în fiecare condiție: 25 de încercări, ~600 de cadre pe condiție.</p>
+<div class="scroll"><table>
+<tr><th>Condiție (test live)</th><th class="num">Acuratețe pe cadre</th><th class="num">Încercări corecte</th><th class="num">Falling</th><th class="num">Idle</th><th class="num">Lifting</th><th class="num">Sitting</th><th class="num">Walking</th></tr>
+<tr><td>normal</td><td class="num">99,8%</td><td class="num">5/5</td><td class="num">100%</td><td class="num">99%</td><td class="num">100%</td><td class="num">100%</td><td class="num">100%</td></tr>
+<tr><td>mișcări rapide (fast)</td><td class="num">95,8%</td><td class="num">5/5</td><td class="num">100%</td><td class="num">82%</td><td class="num">100%</td><td class="num">97%</td><td class="num">100%</td></tr>
+<tr><td>lumină slabă (low_light)</td><td class="num">96,8%</td><td class="num">5/5</td><td class="num">90%</td><td class="num">94%</td><td class="num">100%</td><td class="num">100%</td><td class="num">100%</td></tr>
+<tr><td>din profil (side_angle)</td><td class="num">92,2%</td><td class="num">5/5</td><td class="num">68%</td><td class="num">96%</td><td class="num">97%</td><td class="num">100%</td><td class="num">100%</td></tr>
+<tr><td>departe de cameră (far_distance)</td><td class="num">95,3%</td><td class="num">5/5</td><td class="num">93%</td><td class="num">83%</td><td class="num">100%</td><td class="num">100%</td><td class="num">100%</td></tr>
+</table></div>
+<p>Toate cele 25 de încercări sunt recunoscute corect. Cea mai grea condiție este filmarea din profil, în special căderea (68% din cadre), care din lateral seamănă cu așezarea; „idle” scade la 82–83% la mișcări rapide și de departe, confundat uneori cu mersul. Cu o singură încercare pe acțiune și condiție, cifrele pe acțiune sunt orientative.</p>
+<figure><img src="python_research/data/final_metrics/module1_robustness.png" alt="Robustețe"><figcaption>Acuratețea pe cadre și pe încercări, pentru fiecare condiție.</figcaption></figure>
+<figure><img src="python_research/data/model_comparison/accuracy_bars.png" alt="Model vechi vs nou"><figcaption>Modelul inițial (v1) față de modelul final, pe cele 4 acțiuni inițiale, pe clipuri ținute deoparte: 67,1% → 99,3% acuratețe pe ferestre (8 clipuri; cifra reprezentativă rămâne cea din validarea încrucișată).</figcaption></figure>
+
+<h2 id="hands">Modulele 1 + 2 împreună – obiecte de muzeu în mâini</h2>
+<p>În fața camerei web, cine își întinde mâinile primește în ele un obiect de muzeu, la mărimea lui reală, armonizat cu imaginea camerei, în timp real și în Full HD (~30 de cadre pe secundă pe RTX 2060, cât dă camera), în timp ce clasificatorul de acțiuni din Modulul 1 rulează în paralel. Fiecare persoană își primește propriile obiecte:</p>
+<ul>
+  <li><b>o mână</b> – un obiect mic (până la 25 cm), pe palmă, sau o armă ținută de mâner (un pumnal, o suliță, un ciocan de război); tastele N și H schimbă obiectul și pornesc/opresc armonizarea;</li>
+  <li><b>ambele mâini apropiate</b> (sub 50 cm) – un singur obiect mare, ținut de burtă cu palmele deschise sau de toarte cu degetele strânse, ori o sabie culcată pe palme;</li>
+  <li><b>ambele mâini depărtate</b> (peste 70 cm) – câte un obiect mic în fiecare mână;</li>
+  <li>cu <b>ambele mâini ridicate</b>, obiectele se schimbă singure la 4 s, în ordine amestecată, ca dintr-un pachet de cărți: fiecare obiect apare o singură dată până trec toate (apoi se amestecă din nou), niciodată același în ambele mâini și niciodată trecut dintr-o mână în cealaltă la schimbarea următoare, iar fiecare apare 2 s armonizat și 2 s brut, ca diferența să se vadă fără nicio tastă.</li>
+</ul>
+<p>Mâinile sunt găsite cu MediaPipe Hand Landmarker (21 de puncte pe mână, cu coordonate 3D în metri, din care rezultă scara reală) și legate de persoana căreia îi aparțin prin scheletul MediaPipe Pose. Obiectele sunt decupate o singură dată cu YOLOv8m + SAM 2.1 + matting; armonizarea rulează într-un proces separat, pe placa video, ca o matrice de culoare 3×4 potrivită ansamblului de rețele, plus granulația camerei; obiectul își păstrează claritatea fotografiei.</p>
+<figure><img src="python_research/data/objects/catalog_preview.jpg" alt="Biblioteca de obiecte"><figcaption>Biblioteca de 30 de obiecte (The Met, CC0), la aceeași scară, a mărimilor reale: pe primul rând cele 12 pentru o mână, pe următoarele cele 18 pentru ambele mâini. Pentru o mână: hipopotamul „William” (faianță egipteană, 11 cm), trei amfore mici (16–21 cm), un acvamanil în formă de leu (~1200, 21 cm), coiful de paradă al lui Filippo Negroli (Milano, 1543, 24 cm), o mănușă de armură cu benzi aurite (Valentin Siebenbürger, ~1535, 29 cm), un pistol cu cremene (~1700–1730, 32 cm), un vârf de suliță din bronz (1200–800 î.Hr., 40 cm), o suliță japoneză în teacă (44 cm), un pumnal mogul cu mâner de jad în formă de cap de cal, în teacă (49 cm) și un ciocan de război săsesc (57 cm). Pentru ambele mâini: un glob ceresc cu mecanism de ceas purtat de Pegas (Gerhard Emmoser, 1579, 27 cm), un coif grecesc de tip corintic (31 cm), un morion gravat (32 cm), un bust roman de marmură (42 cm), cinci amfore mari (46–78 cm), un scut indian pictat (dhal, 52 cm), două apărători pentru capul calului (olandeză, ~1620, 54 cm, și japoneză, cu coarne, 56 cm), o platoșă de Giovan Paolo Negroli (59 cm), scutul regelui Henric al II-lea al Franței (64 cm), o sabie de paradă napolitană cu teacă aurită (94 cm), o sabie cu mâner otoman, în teacă (102 cm), o armură de infanterist din Nürnberg (~1600, 125 cm) și o spadă cu două mâini (~1400–1450, 146 cm).</figcaption></figure>
+<p>Decuparea merge și pentru obiectele pe care YOLO nu le cunoaște (coifuri, platoșa, bustul, armele): SAM pornește de la cea mai mare detecție slabă din fotografie, iar unde YOLO nu vede nimic sau doar o parte (globul ceresc: sfera, fără Pegas și soclu; spada, apărătorile pentru cal, armura), în catalog este dat chenarul întregului obiect. Găurile mici lăsate de SAM în interiorul unui obiect sunt umplute înainte de matting, iar marginea fină a decupajului are cel mult lățimea de la o fotografie de 1600 px: la fotografiile de 4000 px ale săbiilor, lama ieșea altfel parțial transparentă. Armele sunt fotografiate de muzeu în picioare. Săbiile sunt întoarse culcat în decupaj (fotografia rămâne neschimbată), au în catalog lungimea reală în locul înălțimii și stau pe ambele palme, la lungimea lor; pumnalul, sulițele și ciocanul de război se țin într-o mână, ridicate de la capătul de jos pe palma deschisă sau strânse de mâner în pumn. Obiectele fără toarte sunt ținute la prindere de partea lor cea mai lată de sus (marginile coifului sau ale scutului, inelul globului), iar bustul și săbiile, ca de mâinile deschise.</p>
+<p>Camera este citită la rezoluția ei maximă, Full HD (1920×1080). Mâinile și scheletele sunt găsite într-o copie de 960×540 a cadrului (modelele lucrează oricum pe imagini mici), iar obiectele sunt desenate în imaginea Full HD, din decupaje la rezoluția completă a fotografiilor muzeului (cele mai multe 900–2300 px pe latura mare; săbiile, culcate, ~3600 px lungime, din originalele muzeului de 4000 px), deci liniile incizate, gravurile și modelele picturii se văd clar. Granulația obiectelor este zgomotul camerei, măsurat chiar pe imaginea Full HD: camerele netezesc și comprimă imaginea, așa că zgomotul lor nu crește la mărire (camera folosită: σ ≈ 0,25 niveluri de gri la 1080p, 0,42 pe copia de 480 de rânduri).</p>
+<p><b>Desenarea în timp real.</b> O vază mare ținută aproape de cameră ajunge la 1500–1800 px înălțime, mai mult decât cadrul. Varianta anterioară redimensiona decupajul în virgulă mobilă la fiecare mărime nouă, iar mâinile se mișcă mereu, deci mărimea se schimba aproape la fiecare cadru: desenarea unei asemenea vaze dura 62 ms, iar imaginea cobora la 8–10 cadre pe secundă. Acum decupajul este pregătit o singură dată, cu culorile extinse sub zona transparentă (pull-push), ca redimensionarea să nu aducă margini întunecate. O vază cu mult mai mică decât fotografia este redimensionată întreagă cu INTER_AREA, ca înainte, și păstrată cât timp mărimea și armonizarea nu se schimbă; una apropiată de mărimea fotografiei sau mai mare (peste ~70%, o vază mare ținută aproape) este eșantionată biliniar la fiecare cadru doar acolo unde se vede (la aceste rapoarte, practic la fel ca INTER_AREA). Culoarea se aplică o dată la fiecare actualizare a armonizării, pe decupaj, iar compunerea se face direct în imaginea de 8 biți (<code>blendLinear</code>), în tablouri refolosite. Vazele arată la fel ca înainte (diferență medie 0,1–0,5 niveluri de gri, PSNR median 48–52 dB pe vază) și nu mai au inelul întunecat de pe margini.</p>
+<div class="scroll"><table>
+<tr><th>Full HD, vază mare în ambele mâini, mărimea schimbându-se la fiecare cadru</th><th class="num">Înainte</th><th class="num">Acum</th></tr>
+<tr><td>desenarea în Python (mediană / 90% din cadre)</td><td class="num">62 / 189 ms</td><td class="num">8,7 / 12,6 ms</td></tr>
+<tr><td>desenarea în C++ (Release, mediană / 90% din cadre)</td><td class="num">–</td><td class="num">8,6 / 12,1 ms</td></tr>
+<tr><td>trei obiecte în C++ (Release)</td><td class="num">10 ms</td><td class="num">3,6–4 ms</td></tr>
+<tr><td>demonstrația Python, cu înregistrare (cadre pe secundă)</td><td class="num">8–10</td><td class="num">25–29</td></tr>
+<tr><td>aplicația C++, cu camera (cadre pe secundă)</td><td class="num">–</td><td class="num">27–29</td></tr>
+</table></div>
+<p>Camera dă 30 de cadre pe secundă; limita este acum găsirea mâinilor (MediaPipe, ~25–30 ms pe cadru), iar după multe minute de rulare, când procesorul laptopului se încălzește, valorile scad cu câteva cadre. Textul de stare se redesenează doar când se schimbă (în Full HD, cu antialiasing, costa ~4–5 ms pe cadru), iar înregistrarea trimite cadrul la ffmpeg fără copie.</p>
+<h3>Lumina scenei, culorile reale ale vazelor</h3>
+<p>Rețelele de armonizare sunt antrenate să repare obiecte ale căror culori sunt <b>greșite</b>, așa că trag culorile obiectului spre cele ale scenei. Fotografiile de muzeu au însă culorile <b>corecte</b>; față de scena camerei diferă doar lumina. Aplicate integral, rețelele schimbau vizibil culorile vazelor: le spălau într-o piață însorită și le îngălbeneau într-o sală caldă. De aceea, live, de la rețele se preia integral schimbarea de luminozitate și contrast, dar doar 25% din schimbarea de culoare. Măsurătorile sunt făcute cu exact codul live (<code>live_harmony_eval.py</code>), pe benchmark-ul de armonizare (30 de cazuri din fotografii reale) și pe cele 8 vaze puse în 5 scene reale.</p>
+<div class="scroll"><table>
+<tr><th>Partea de culoare preluată</th><th class="num">fMSE ↓</th><th class="num">fPSNR ↑</th><th class="num">fSSIM ↑</th><th class="num">Saturația vazelor (medie, min–max)</th><th class="num">Vaze în ±15% din saturația reală</th></tr>
+<tr><td>fără armonizare</td><td class="num">626</td><td class="num">21,3 dB</td><td class="num">0,876</td><td class="num">1,00</td><td class="num">100%</td></tr>
+<tr><td>100% (varianta anterioară)</td><td class="num">186</td><td class="num">26,8 dB</td><td class="num">0,952</td><td class="num">0,84 (0,29–1,60)</td><td class="num">30%</td></tr>
+<tr><td>50%</td><td class="num">201</td><td class="num">26,5 dB</td><td class="num">0,948</td><td class="num">0,92 (0,61–1,28)</td><td class="num">58%</td></tr>
+<tr class="best"><td>25% (implicit)</td><td class="num">219</td><td class="num">26,2 dB</td><td class="num">0,945</td><td class="num">0,95 (0,80–1,14)</td><td class="num">90%</td></tr>
+<tr><td>0% (doar luminozitatea)</td><td class="num">246</td><td class="num">25,7 dB</td><td class="num">0,940</td><td class="num">0,99 (0,95–1,05)</td><td class="num">100%</td></tr>
+</table></div>
+<p>Luminozitatea și contrastul aduc singure 81% din câștigul armonizării pe benchmark (de la 21,3 la 25,7 dB, din 26,8 dB). Cu 25% din schimbarea de culoare, vazele își păstrează practic culorile din fotografia de muzeu, iar într-o lumină caldă primesc totuși o tentă caldă. Pe benchmark se pierd doar 0,6 dB, fiindcă acolo obiectele au, prin construcție, culori greșite. Matricea de culoare folosită live este chiar puțin mai bună decât rețelele aplicate pixel cu pixel (26,8 dB față de 26,5 dB): ca transformare globală, netezește artefactele lor locale.</p>
+<figure><img src="python_research/data/metrics_results/live_harmony_colour.jpg" alt="Vazele cu toată schimbarea de culoare și cu 25%"><figcaption>Aceeași vază așa cum a fost fotografiată, armonizată cu toată schimbarea de culoare a rețelelor (varianta anterioară) și cu 25% (varianta live actuală): în piață portocaliul amforei nu mai este spălat, teracota din curtea muzeului nu mai devine violacee, iar în sala caldă vasul nu se mai îngălbenește.</figcaption></figure>
+<h3>Pictura și inscripțiile vazelor armonizate</h3>
+<p>Armonizată, o vază își pierdea aproape tot detaliul: pictura, liniile incizate, inscripțiile. Potrivirea „camerei” o estompa la claritatea măsurată pe mâinile care o țin, dar pielea mâinilor este netedă și pare mereu neclară, așa că estomparea stătea la plafonul ei (1,5 px la 480 de rânduri, adică 3,4 px în Full HD) în 55% din actualizări, cu mediana chiar la plafon. Camera nu este însă neclară: măsurate pe muchiile cele mai clare ale propriilor cadre, tranzițiile ei au 1,25 px (10–90%), mai puțin decât ale unei vaze desenate fără nicio estompare (1,75 px). Așadar o vază ținută în mâini, la aceeași distanță ca ele, nu mai este estompată: armonizarea îi schimbă doar lumina și tonul (matricea de culoare, cu 25% din schimbarea de culoare) și îi adaugă granulația camerei. În plus, decupajele păstrează acum rezoluția completă a fotografiilor (973–1314 px, nu 1080 px tăiați), iar cele două amfore mari, pe care mâinile le aduc cel mai aproape de cameră (până la ~1800 px pe ecran), sunt făcute din originalele muzeului micșorate la 2400 px (2031 și 2099 px): pe ecran sunt micșorate, nu mărite.</p>
+<div class="scroll"><table>
+<tr><th>Vaza</th><th class="num">Pe ecran</th><th class="num">Detaliu păstrat înainte</th><th class="num">Detaliu păstrat acum</th><th class="num">SSIM înainte</th><th class="num">SSIM acum</th></tr>
+<tr><td>Amphora Small Geometric</td><td class="num">500 px</td><td class="num">6%</td><td class="num">100%</td><td class="num">0,51</td><td class="num">0,999</td></tr>
+<tr><td>Amphora Small Cypriot</td><td class="num">500 px</td><td class="num">9%</td><td class="num">100%</td><td class="num">0,61</td><td class="num">0,999</td></tr>
+<tr><td>Amphora Small Etruscan</td><td class="num">500 px</td><td class="num">5%</td><td class="num">100%</td><td class="num">0,59</td><td class="num">0,999</td></tr>
+<tr><td>Amphora Red Figure</td><td class="num">1000 px</td><td class="num">5%</td><td class="num">113%</td><td class="num">0,60</td><td class="num">0,995</td></tr>
+<tr><td>Jar Terracotta</td><td class="num">1000 px</td><td class="num">6%</td><td class="num">114%</td><td class="num">0,53</td><td class="num">0,994</td></tr>
+<tr><td>Amphora Black Figure</td><td class="num">1000 px</td><td class="num">5%</td><td class="num">111%</td><td class="num">0,59</td><td class="num">0,996</td></tr>
+<tr><td>Amphora Large Attic</td><td class="num">1500 px</td><td class="num">7%</td><td class="num">110%</td><td class="num">0,70</td><td class="num">0,996</td></tr>
+<tr><td>Amphora Large Apulian</td><td class="num">1500 px</td><td class="num">7%</td><td class="num">115%</td><td class="num">0,69</td><td class="num">0,995</td></tr>
+</table></div>
+<p>Măsurat cu <code>live_harmony_detail.py</code>: fiecare vază, la mărimea pe care o are în demonstrația Full HD (o mână ~500 px, două mâini ~1000 px, o amforă mare ținută aproape ~1500 px), în lumina unei săli calde de muzeu (matricea pe care armonizarea live o potrivește acolo), comparată cu fotografia de muzeu în aceeași lumină: detaliul fin păstrat (energia laplacianului, 100% = al fotografiei) și asemănarea structurală (SSIM) a luminozității. Peste 100% înseamnă că eșantionarea biliniară a vazelor mari văzute de aproape este cu un fir mai clară decât filtrul de referință.</p>
+<figure><img src="python_research/data/metrics_results/live_harmony_detail.jpg" alt="Detaliile vazelor armonizate, înainte și acum"><figcaption>Detalii la 1:1, în lumina unei săli calde de muzeu: fotografia de muzeu, vaza armonizată înainte (estompată după mâini, din decupaje de 1080 px) și acum. Caii și harnașamentul amforei cu figuri negre, faldurile și friza amforei cu figuri roșii, liniile incizate ale amforei attice se văd ca în fotografie.</figcaption></figure>
+<h3>În aplicația C++</h3>
+<p>Aplicația Qt/C++ arată obiectele exact ca demonstrația Python, cu aceleași reguli, ritm automat, armonizare și taste (H, O, N, D, S, Q), lângă recunoașterea acțiunilor, tot în Full HD. Python (<code>pose_server.py</code>) face percepția și deciziile, cu același cod: mâinile, persoanele, ce obiect apare, unde și cum e ținut, și armonizarea. Pentru fiecare cadru trimite descrierea obiectelor (decupaj, mărime, poziție, mod de ținere, matricea de culoare 3×4, claritatea și zgomotul). C++ (<code>object_renderer.cpp</code>) compune imaginea pas cu pas ca în Python, chiar pe cadrul în care au fost găsite mâinile, ca obiectele să nu rămână în urma lor.</p>
+<div class="scroll"><table>
+<tr><th>Compoziția C++ față de Python (aceeași scenă, trei obiecte)</th><th class="num">Pixeli desenați</th><th class="num">Diferența maximă</th><th class="num">Pixeli cu diferență &gt; 1</th></tr>
+<tr><td>armonizat (estompare, accentuare, fără schimbare de claritate)</td><td class="num">48 036</td><td class="num">2 / 255</td><td class="num">4</td></tr>
+<tr><td>brut (tasta H)</td><td class="num">48 054</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td>faza brută a ritmului automat, pentru un obiect</td><td class="num">48 038</td><td class="num">1 / 255</td><td class="num">0</td></tr>
+<tr><td>Full HD: scena în copia mică, obiectele desenate la 1080 de rânduri (armonizat)</td><td class="num">243 316</td><td class="num">1 / 255</td><td class="num">0</td></tr>
+<tr><td>Full HD: vază mare aproape de cameră, 1569 px, mai înaltă decât cadrul (armonizat și brut)</td><td class="num">519 196</td><td class="num">0</td><td class="num">0</td></tr>
+</table></div>
+<p>Scena de test conține toate cele trei moduri de ținere (pe palmă, cu umbră; de burtă și de toarte, cu mâinile în fața obiectului), opacitate parțială și un obiect tăiat de marginea cadrului; diferențele de 1–2 niveluri (4 pixeli din 48 000) vin din rotunjire. Zgomotul de senzor adăugat de C++ are deviația cerută (3,98 măsurat, față de 4). Desenarea celor trei obiecte durează ~0,9 ms la 640×480 și ~4 ms în Full HD (Release); cu camera, aplicația afișează ~27–30 de cadre pe secundă în Full HD, și cu obiectele în mâini (camera dă 30; mai puțin după multe minute de rulare, când procesorul laptopului se încălzește). Serverul Python are câte două cadre deodată: cât timp găsește mâinile într-unul, următorul este deja citit și decodat, iar C++ pregătește cadrul de după în timp ce desenează răspunsul.</p>
+<p>Odată cu integrarea, legarea mâinilor de persoane a devenit robustă la momentele în care modelul de schelet pierde o persoană. O persoană pierdută scurt își păstrează identitatea, iar o mână al cărei corp lipsește într-un cadru rămâne a persoanei cu care era. Scenarii sintetice de câte 5 s, aceleași mâini și scheleți, logica anterioară față de cea nouă:</p>
+<div class="scroll"><table>
+<tr><th>Scenariu</th><th>Logica anterioară</th><th>Logica nouă</th></tr>
+<tr><td>o persoană cu ambele mâini, scheletul ratat la fiecare al 3-lea cadru</td><td>obiectul mare lipsește în 45 din 134 de cadre</td><td>afișat în toate cadrele</td></tr>
+<tr><td>o persoană cu ambele mâini, scheletul ratat 2 cadre din 3</td><td>86 de schimbări ale obiectelor afișate</td><td>2 (doar ritmul automat)</td></tr>
+<tr><td>o persoană, scheletul pierdut 1,3 s</td><td>3 obiecte succesive (identitate nouă)</td><td>același obiect, ritmul continuă</td></tr>
+<tr><td>două persoane alăturate, câte o mână, una ratată la fiecare al 3-lea cadru</td><td>mâinile lor formează o pereche (un obiect comun) în 89 de cadre</td><td>niciodată: câte un obiect fiecare</td></tr>
+<tr><td>două persoane cu ambele mâini, ratate pe rând</td><td>cel mult 1 obiect pentru amândouă, 86 de schimbări</td><td>câte un obiect fiecare, 2 schimbări</td></tr>
+</table></div>
+
+<h2 id="photos">Modulul 2 – Fotografiile noi</h2>
+<p>Fotografiile vechi (rezoluție mică, vază fotografiată prin vitrină) au fost înlocuite cu fotografii de studio ale unor vase reale din colecția Open Access a The Metropolitan Museum of Art – cu <b>înălțimea reală cunoscută</b>, necesară pentru scara automată – și cu fotografii de săli de muzeu de pe Wikimedia Commons, toate refolosibile în lucrări academice. Autorul și licența fiecărei imagini sunt în <a href="photos/CREDITS.md">photos/CREDITS.md</a>.</p>
+<div class="thumbs">
+  <figure><img src="photos/amphora_black_figure.jpg" alt="Amforă cu figuri negre"><figcaption>Amforă cu figuri negre, pictorul Rycroft, cca. 510 î.Hr., 51,1 cm (The Met, CC0)</figcaption></figure>
+  <figure><img src="photos/amphora_red_figure.jpg" alt="Amforă cu figuri roșii"><figcaption>Amforă, pictorul Nikoxenos, cca. 500 î.Hr., 45,9 cm (The Met, CC0)</figcaption></figure>
+  <figure><img src="photos/jar_terracotta.jpg" alt="Amforă cipriotă"><figcaption>Amforă cipriotă din teracotă, cca. 1900–1600 î.Hr., 48,3 cm (The Met, CC0)</figcaption></figure>
+  <figure><img src="photos/poza_CV.jpg" alt="Autorul"><figcaption>Fotografia autorului</figcaption></figure>
+  <figure><img src="photos/hall_nelson_atkins.jpg" alt="Nelson-Atkins"><figcaption>Galeria de sculptură, Nelson-Atkins Museum (domeniu public)</figcaption></figure>
+  <figure><img src="photos/hall_norton_simon.jpg" alt="Norton Simon"><figcaption>Galeria de sculptură asiatică, Norton Simon Museum (domeniu public)</figcaption></figure>
+  <figure><img src="photos/hall_kielce.jpg" alt="Kielce"><figcaption>Muzeul Național din Kielce (CC BY 4.0, Krzysztof Popławski)</figcaption></figure>
+  <figure><img src="photos/hall_met_sculpture_court.jpg" alt="Met"><figcaption>Curtea de sculptură europeană, The Met (CC BY 3.0, Jean-Christophe Benoist)</figcaption></figure>
+  <figure><img src="photos/outdoor_town_square.jpg" alt="Piață"><figcaption>Plac Kościuszki, Tomaszów Mazowiecki (domeniu public)</figcaption></figure>
+</div>
+
+<h2 id="upgrade">Compoziția: varianta anterioară vs varianta nouă</h2>
+<p>Pentru ca obiectul mutat să pară că aparține pozei, fluxul nou tratează toate indiciile după care ochiul recunoaște o compoziție:</p>
+<ol>
+  <li><b>Decupaj precis</b> – SAM 2.1 pornește de la cutia găsită de YOLO și urmărește exact forma obiectului (toarte, contur), lăsând afară soclul.</li>
+  <li><b>Margini naturale</b> – matting cu filtru ghidat și curățarea culorilor de margine de vechiul fundal (fără „halou”).</li>
+  <li><b>Mărime și perspectivă corecte</b> – Depth Anything V2 dă distanța în metri; din înălțimea reală a obiectului rezultă mărimea lui în imagine, iar din planul podelei, perspectiva umbrei.</li>
+  <li><b>Detalii</b> – Real-ESRGAN reface detaliile când obiectul trebuie mărit.</li>
+  <li><b>Culoare și lumină</b> – media a trei rețele antrenate pe iHarmony4 (Harmonizer, PCT-Net ViT, PCT-Net CNN).</li>
+  <li><b>Claritate și zgomot</b> aduse la nivelul scenei.</li>
+  <li><b>Reflexie</b> pe podeaua lucioasă și <b>umbră de contact</b> în perspectiva podelei.</li>
+</ol>
+<p>În fiecare pereche, sus este varianta anterioară (mască YOLO, margine estompată, Harmonizer, fără super-rezoluție, reflexie sau umbră), la aceeași mărime și poziție; jos este varianta nouă. Ultimul panou mărește zona obiectului.</p>
+<figure><img src="python_research/data/museum_demo_previous/amphora_black_figure_on_hall_nelson_atkins_demo.jpg" alt="Nelson-Atkins - anterior"><figcaption><span class="tag prev">Varianta anterioară</span>Nelson-Atkins Museum.</figcaption></figure>
+<figure><img src="python_research/data/museum_demo/amphora_black_figure_on_hall_nelson_atkins_demo.jpg" alt="Nelson-Atkins - nou"><figcaption><span class="tag new">Varianta nouă</span>Nelson-Atkins Museum: amfora la 3,8 m, fără soclu, cu reflexie slabă în podeaua lucioasă și umbră de contact.</figcaption></figure>
+<figure><img src="python_research/data/museum_demo_previous/amphora_black_figure_on_hall_norton_simon_demo.jpg" alt="Norton Simon - anterior"><figcaption><span class="tag prev">Varianta anterioară</span>Norton Simon Museum.</figcaption></figure>
+<figure><img src="python_research/data/museum_demo/amphora_black_figure_on_hall_norton_simon_demo.jpg" alt="Norton Simon - nou"><figcaption><span class="tag new">Varianta nouă</span>Norton Simon Museum: sală întunecată, luminată cu spoturi; amfora, fotografiată în studio, este întunecată ca să se potrivească luminii sălii.</figcaption></figure>
+<figure><img src="python_research/data/museum_demo_previous/amphora_black_figure_on_hall_kielce_demo.jpg" alt="Kielce - anterior"><figcaption><span class="tag prev">Varianta anterioară</span>Muzeul Național din Kielce.</figcaption></figure>
+<figure><img src="python_research/data/museum_demo/amphora_black_figure_on_hall_kielce_demo.jpg" alt="Kielce - nou"><figcaption><span class="tag new">Varianta nouă</span>Kielce: amfora la 5,1 m, în centrul sălii.</figcaption></figure>
+<figure><img src="python_research/data/museum_demo_previous/amphora_black_figure_on_hall_met_sculpture_court_demo.jpg" alt="Met - anterior"><figcaption><span class="tag prev">Varianta anterioară</span>Curtea de sculptură a The Met.</figcaption></figure>
+<figure><img src="python_research/data/museum_demo/amphora_black_figure_on_hall_met_sculpture_court_demo.jpg" alt="Met - nou"><figcaption><span class="tag new">Varianta nouă</span>The Met: lumină naturală de zi, podea de piatră.</figcaption></figure>
+
+<h3>Persoana în trei scene</h3>
+<div class="pair">
+  <figure><img src="python_research/data/pipeline_results_previous/poza_CV_on_hall_met_sculpture_court_final.jpg" alt="Met - anterior"><figcaption><span class="tag prev">Varianta anterioară</span>The Met.</figcaption></figure>
+  <figure><img src="python_research/data/pipeline_results/poza_CV_on_hall_met_sculpture_court_final.jpg" alt="Met - nou"><figcaption><span class="tag new">Varianta nouă</span>The Met: 1,78 m la 4,2 m distanță.</figcaption></figure>
+  <figure><img src="python_research/data/pipeline_results_previous/poza_CV_on_hall_nelson_atkins_final.jpg" alt="Nelson-Atkins - anterior"><figcaption><span class="tag prev">Varianta anterioară</span>Nelson-Atkins.</figcaption></figure>
+  <figure><img src="python_research/data/pipeline_results/poza_CV_on_hall_nelson_atkins_final.jpg" alt="Nelson-Atkins - nou"><figcaption><span class="tag new">Varianta nouă</span>Nelson-Atkins: 3,2 m distanță, reflexie slabă în parchet.</figcaption></figure>
+  <figure><img src="python_research/data/pipeline_results_previous/poza_CV_on_outdoor_town_square_final.jpg" alt="Piață - anterior"><figcaption><span class="tag prev">Varianta anterioară</span>Piață, în exterior.</figcaption></figure>
+  <figure><img src="python_research/data/pipeline_results/poza_CV_on_outdoor_town_square_final.jpg" alt="Piață - nou"><figcaption><span class="tag new">Varianta nouă</span>Piață: modelul de adâncime pentru exterior, 7,4 m distanță.</figcaption></figure>
+</div>
+
+<h2 id="depth">Scara și perspectiva din adâncime</h2>
+<p>Depth Anything V2 (varianta metrică) estimează distanța în metri a fiecărui pixel al fundalului. Cunoscând înălțimea reală a obiectului H și distanța Z din punctul în care este așezat, înălțimea lui în imagine este h = f · H / Z (camera pinhole, câmp vizual presupus de 60°). Un plan potrivit pe punctele 3D ale podelei din jur dă cât de „turtită” apare podeaua (înclinarea), folosită pentru elipsa umbrei de contact. Primul panou arată harta de adâncime (aproape = luminos), cu punctul de contact marcat.</p>
+<figure><img src="python_research/data/museum_demo/amphora_black_figure_on_hall_kielce_comparison.jpg" alt="Adâncime Kielce"><figcaption>Kielce: adâncime → compoziție → armonizare → reflexie și umbră.</figcaption></figure>
+<figure><img src="python_research/data/pipeline_results/poza_CV_on_outdoor_town_square_comparison.jpg" alt="Adâncime piață"><figcaption>Piața: modelul pentru exterior, persoana la 7,4 m.</figcaption></figure>
+<div class="scroll"><table>
+<tr><th>Obiect (înălțime reală)</th><th>Scena</th><th class="num">Distanța la bază</th><th class="num">Înălțimea în imagine</th><th class="num">Înclinarea podelei</th></tr>
+<tr><td>Amforă figuri negre (0,51 m)</td><td>Nelson-Atkins</td><td class="num">3,8 m</td><td class="num">16,0%</td><td class="num">0,31</td></tr>
+<tr><td>Amforă figuri negre (0,51 m)</td><td>Norton Simon</td><td class="num">3,2 m</td><td class="num">21,1%</td><td class="num">0,28</td></tr>
+<tr><td>Amforă figuri negre (0,51 m)</td><td>Kielce</td><td class="num">5,1 m</td><td class="num">13,2%</td><td class="num">0,29</td></tr>
+<tr><td>Amforă figuri negre (0,51 m)</td><td>The Met</td><td class="num">3,2 m</td><td class="num">21,1%</td><td class="num">0,25</td></tr>
+<tr><td>Amforă figuri roșii (0,46 m)</td><td>Kielce</td><td class="num">4,9 m</td><td class="num">12,5%</td><td class="num">0,30</td></tr>
+<tr><td>Amforă figuri roșii (0,46 m)</td><td>Nelson-Atkins</td><td class="num">3,9 m</td><td class="num">13,9%</td><td class="num">0,30</td></tr>
+<tr><td>Amforă cipriotă (0,48 m)</td><td>The Met</td><td class="num">3,4 m</td><td class="num">19,0%</td><td class="num">0,23</td></tr>
+<tr><td>Amforă cipriotă (0,48 m)</td><td>Norton Simon</td><td class="num">3,8 m</td><td class="num">17,3%</td><td class="num">0,25</td></tr>
+<tr><td>Persoană (1,78 m)</td><td>The Met</td><td class="num">4,2 m</td><td class="num">56,0%</td><td class="num">0,19</td></tr>
+<tr><td>Persoană (1,78 m)</td><td>Nelson-Atkins</td><td class="num">3,2 m</td><td class="num">64,6%</td><td class="num">0,36</td></tr>
+<tr><td>Persoană (1,78 m)</td><td>Piață (exterior)</td><td class="num">7,4 m</td><td class="num">28,3%</td><td class="num">0,24</td></tr>
+</table></div>
+<p>„Înălțimea în imagine” este a decupajului (obiect + o margine mică), ca fracție din înălțimea fundalului. Aceeași amforă apare mai mică în sala din Kielce (5,1 m) decât lângă cameră (3,2 m), fără nicio setare manuală a mărimii.</p>
+
+<h2 id="gallery">Galerie: alte obiecte</h2>
+<div class="pair">
+  <figure><img src="python_research/data/museum_demo/amphora_red_figure_on_hall_kielce_final.jpg" alt="Figuri roșii Kielce"><figcaption>Amfora cu figuri roșii în sala din Kielce.</figcaption></figure>
+  <figure><img src="python_research/data/museum_demo/amphora_red_figure_on_hall_nelson_atkins_final.jpg" alt="Figuri roșii Nelson-Atkins"><figcaption>Amfora cu figuri roșii la Nelson-Atkins.</figcaption></figure>
+  <figure><img src="python_research/data/museum_demo/jar_terracotta_on_hall_met_sculpture_court_final.jpg" alt="Amforă cipriotă Met"><figcaption>Amfora cipriotă în curtea de sculptură a The Met.</figcaption></figure>
+  <figure><img src="python_research/data/museum_demo/jar_terracotta_on_hall_norton_simon_final.jpg" alt="Amforă cipriotă Norton Simon"><figcaption>Amfora cipriotă la Norton Simon.</figcaption></figure>
+</div>
+
+<h2 id="relight">Armonizare și reiluminare: 11 metode</h2>
+<p>Armonizarea culorii nu schimbă direcția luminii pe obiect. Au fost testate în plus două metode recente care <b>reiluminează</b> obiectul, ambele rulând pe RTX 2060 (12–20 s pe imagine, vârf de memorie 4,7 GB, respectiv 4,4 GB):</p>
+<ul>
+  <li><b>Intrinsic Harmonization</b> (Careaga et al., SIGGRAPH Asia 2023): descompune imaginea în albedo și umbrire, armonizează albedo-ul obiectului și îl reumbrește sub lumina estimată din fundal (armonici sferice din umbrirea și normalele scenei).</li>
+  <li><b>Ensemble + reumbrire</b> (combinația propusă): culorile din ansamblul celor trei rețele, apoi doar pasul de reumbrire al metodei de mai sus.</li>
+  <li><b>IC-Light</b> (Zhang et al., ICLR 2025): un model de difuzie (Stable Diffusion 1.5) care regenerează obiectul luminat ca în fundal; se păstrează doar schimbarea de lumină, ca hartă netedă de câștig, ca să nu se modifice detaliile (pictura vazei).</li>
+</ul>
+<p>Figurile sunt decupate în jurul obiectului; imaginile întregi sunt în <code>data/harmonization_results/</code>.</p>
+<figure><img src="python_research/data/harmonization_results/amphora_red_figure_on_hall_kielce_comparison_detail.jpg" alt="Toate metodele - Kielce"><figcaption>Amfora cu figuri roșii în sala din Kielce, cu fiecare metodă.</figcaption></figure>
+<figure><img src="python_research/data/harmonization_results/jar_terracotta_on_hall_met_sculpture_court_comparison_detail.jpg" alt="Toate metodele - Met"><figcaption>Amfora cipriotă în curtea The Met. Metodele clasice o „spală” în culoarea podelei; Intrinsic o face verzuie, IC-Light o face portocalie și saturată; ansamblul și ensemble + reumbrire rămân naturale.</figcaption></figure>
+<figure><img src="python_research/data/harmonization_results/poza_CV_on_hall_nelson_atkins_comparison_detail.jpg" alt="Toate metodele - persoană"><figcaption>Persoana în sala Nelson-Atkins.</figcaption></figure>
+<p><b>Concluzie:</b> pe RTX 2060 ambele metode de reiluminare rulează, dar niciuna nu este sigură pentru toate obiectele. Intrinsic Harmonization corectează prea mult albedo-ul obiectelor colorate (portocaliul de teracotă devine măsliniu sau verzui); varianta „ansamblu + reumbrire” păstrează culorile și schimbă doar umbrirea. IC-Light dă cel mai convingător rezultat pe persoană (tonul cald al pielii se potrivește cu sala), dar saturează vasele de teracotă. Metoda implicită rămâne ansamblul, cel mai precis pe benchmark.</p>
+<figure><img src="python_research/data/harmonization_results/amphora_red_figure_on_hall_kielce_vgg_depth_ablation.jpg" alt="Ablația VGG"><figcaption>Ablația pe adâncimea VGG16 (relu1_2 … relu4_3) pentru metoda de bază fără antrenare.</figcaption></figure>
+
+<h2 id="bench">Benchmark armonizare (protocol iHarmony4)</h2>
+<p>Fotografii reale în care obiectul este recolorat aleatoriu; fiecare metodă trebuie să-l readucă la aspectul original, iar fotografia neatinsă este adevărul de referință (30 de cazuri: 6 fotografii × 5 recolorări). fMSE, fPSNR și fSSIM sunt calculate doar pe obiect.</p>
+<div class="scroll"><table>
+<tr><th>Metodă</th><th class="num">fMSE ↓</th><th class="num">fPSNR ↑</th><th class="num">fSSIM ↑</th></tr>
+<tr><td>Fără armonizare</td><td class="num">626</td><td class="num">21,3 dB</td><td class="num">0,876</td></tr>
+<tr><td>Reinhard (clasic)</td><td class="num">2080</td><td class="num">16,1 dB</td><td class="num">0,785</td></tr>
+<tr><td>Potrivirea histogramelor (clasic)</td><td class="num">2649</td><td class="num">15,0 dB</td><td class="num">0,714</td></tr>
+<tr><td>Statistici VGG16 (fără antrenare)</td><td class="num">543</td><td class="num">22,3 dB</td><td class="num">0,908</td></tr>
+<tr><td>Harmonizer (varianta anterioară)</td><td class="num">280</td><td class="num">24,8 dB</td><td class="num">0,932</td></tr>
+<tr><td>PCT-Net ViT</td><td class="num">275</td><td class="num">24,6 dB</td><td class="num">0,930</td></tr>
+<tr><td>PCT-Net CNN</td><td class="num">282</td><td class="num">24,5 dB</td><td class="num">0,929</td></tr>
+<tr class="best"><td>Ansamblu: Harmonizer + PCT-Net ViT + CNN</td><td class="num">191</td><td class="num">26,5 dB</td><td class="num">0,949</td></tr>
+<tr><td>Intrinsic Harmonization (reiluminare)</td><td class="num">1001</td><td class="num">19,9 dB</td><td class="num">0,836</td></tr>
+<tr><td>Ansamblu + reumbrire</td><td class="num">1195</td><td class="num">20,2 dB</td><td class="num">0,869</td></tr>
+<tr><td>IC-Light (reiluminare)</td><td class="num">743</td><td class="num">21,2 dB</td><td class="num">0,866</td></tr>
+</table></div>
+<p><b>Ansamblul celor trei rețele rămâne cea mai bună metodă la toate metricile</b> (fMSE 191, fPSNR 26,5 dB, fSSIM 0,949): reduce eroarea pe obiect cu 32% față de Harmonizer (varianta anterioară a fluxului) și cu 69% față de imaginea nearmonizată. Metodele clasice înrăutățesc rezultatul, pentru că presupun că obiectul trebuie să aibă culorile fundalului.</p>
+<p>Metodele de reiluminare ies <b>mai slab</b> pe acest benchmark, și este de așteptat: aici obiectul este doar recolorat în propria fotografie, deci lumina lui este deja corectă, iar orice schimbare a umbririi este penalizată. Benchmark-ul măsoară corectarea culorii, nu a luminii. Pentru compoziții reale, în care obiectul vine din altă lumină (studio → sală de muzeu), reiluminarea poate ajuta vizual (de exemplu IC-Light pe persoană), dar poate și exagera (amfora cipriotă devine prea portocalie). De aceea fluxul păstrează implicit ansamblul, iar reiluminarea rămâne opțională (<code>--harmony intrinsic | reshade | iclight</code>).</p>
+<div class="pair">
+  <figure><img src="python_research/data/metrics_results/benchmark_fpsnr.png" alt="fPSNR"><figcaption>PSNR pe obiect (mai mare = mai bine).</figcaption></figure>
+  <figure><img src="python_research/data/metrics_results/benchmark_fmse.png" alt="fMSE"><figcaption>Eroarea pătratică medie pe obiect (mai mică = mai bine).</figcaption></figure>
+</div>
+
+<h2 id="seg">Segmentare</h2>
+<figure><img src="python_research/data/yolo_comparison/amphora_black_figure_n_vs_m.jpg" alt="YOLOv8 n vs m și SAM"><figcaption>YOLOv8n-seg (nano), YOLOv8m-seg (medium) și masca rafinată cu SAM 2.1 (verde). Nano ratează toartele și gâtul (IoU 0,82 față de medium); SAM pornește de la cutia YOLO, păstrează toartele și lasă afară soclul alb (IoU 0,92 cu masca YOLO).</figcaption></figure>
+<div class="pair">
+  <figure><img src="python_research/data/foreground_results/amphora_black_figure_preview.jpg" alt="Decupaj"><figcaption>Decupajul cu matting, pe fundal negru: contur curat, fără urme din fundalul de studio.</figcaption></figure>
+  <figure><img src="python_research/data/segmentation_results/poza_CV_segmented.jpg" alt="Segmentare persoană"><figcaption>Segmentarea persoanei.</figcaption></figure>
+</div>
+
+<h2 id="inpaint">Inpainting</h2>
+<figure><img src="python_research/data/inpaint_results/poza_CV_comparison.jpg" alt="Inpainting persoana"><figcaption>Umplerea golului lăsat de persoană: TELEA, Navier-Stokes și LaMa. Evaluat față de pixelii reali (masca mutată într-o zonă liberă), LaMa obține 20,1 dB PSNR față de 15,2 dB (TELEA) și 15,6 dB (Navier-Stokes).</figcaption></figure>
+<figure><img src="python_research/data/inpaint_results/poza_muzeu_comparison.jpg" alt="Inpainting muzeu"><figcaption>Același test pe o vitrină de muzeu: LaMa 11,7 dB / SSIM 0,30, față de 0,18–0,19 SSIM pentru metodele clasice.</figcaption></figure>
+
+<h2 id="shadow">Umbre și reflexie</h2>
+<div class="pair">
+  <figure><img src="python_research/data/shadow_results/amphora_black_figure_on_hall_nelson_atkins_harmonized_shadow_ellipse_cmp.jpg" alt="Umbră de contact"><figcaption>Umbră de contact (elipsă estompată sub bază, turtită după perspectiva podelei) – varianta implicită.</figcaption></figure>
+  <figure><img src="python_research/data/shadow_results/amphora_black_figure_on_hall_nelson_atkins_harmonized_shadow_cast_cmp.jpg" alt="Umbră proiectată"><figcaption>Umbră proiectată pe podea, la 25°.</figcaption></figure>
+</div>
+<p>Reflexia (<code>--reflection 0–1</code>) oglindește obiectul față de linia bazei, estompat și din ce în ce mai slab; se vede în panourile mărite ale demonstrațiilor de mai sus, pe parchetul lăcuit și pe pardoselile lucioase.</p>
+
+<h2 id="credits">Surse</h2>
+<p>Fotografiile: <a href="photos/CREDITS.md">photos/CREDITS.md</a> (autor, sursă și licență pentru fiecare imagine). Modelele preantrenate și licențele lor sunt listate în <code>README.md</code>. Intrinsic Harmonization are licență doar pentru uz academic.</p>
+</main>
+</body>
+</html>

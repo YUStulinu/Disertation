@@ -1,0 +1,9 @@
+vase,height_px,detail_before_pct,detail_now_pct,ssim_before,ssim_now
+amphora_small_geometric,500,6.0,100.073,0.506,0.999
+amphora_small_cypriot,500,8.552,99.977,0.614,0.999
+amphora_small_etruscan,500,5.459,99.963,0.591,0.999
+amphora_red_figure,1000,4.767,112.983,0.604,0.995
+jar_terracotta,1000,6.076,114.397,0.532,0.994
+amphora_black_figure,1000,5.276,111.008,0.593,0.996
+amphora_large_attic,1500,6.805,109.958,0.697,0.996
+amphora_large_apulian,1500,7.274,114.796,0.688,0.995

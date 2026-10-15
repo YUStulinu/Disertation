@@ -1,0 +1,5 @@
+falling
+idle
+lifting_object
+sitting
+walking
