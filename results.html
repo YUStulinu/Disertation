@@ -26,6 +26,13 @@
   .thumbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
   .thumbs figure { margin: 0; }
   .thumbs img { height: 200px; object-fit: contain; }
+  .shots { columns: 4 230px; column-gap: 12px; }
+  .shots figure { break-inside: avoid; margin: 0 0 12px; }
+  figure a { display: block; }
+  .duo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .single { max-width: 760px; }
+  .cmd { width: fit-content; max-width: 100%; overflow-x: auto; background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; margin: 8px 0 12px; font-size: 14px; }
+  @media (max-width: 640px) { .duo { grid-template-columns: 1fr; } }
   .tag { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 99px; color: #fff; margin-right: 6px; }
   .old { background: var(--bad); } .new { background: var(--good); } .prev { background: var(--prev); }
   .scroll { overflow-x: auto; }
@@ -39,10 +46,11 @@
 <body>
 <main>
 <h1>Analysis and Generation of Visual Scenes with Deep Learning</h1>
-<p>The results of both modules. All figures are files in <code>python_research/data/</code>, regenerated with the current code (Module 1: 11 October 2026; the objects-in-hands demo: 13 October 2026; Module 2: 8 October 2026), on a laptop with an RTX 2060 (6 GB).</p>
+<p>The results of both modules. All figures are files in <code>python_research/data/</code>, regenerated with the current code (Module 1: 11 October 2026; the objects-in-hands demo: 13 October 2026; Module 2: 8 October 2026), on a laptop with an RTX 2060 (6 GB); the frames of the filmed demo (15 October 2026) are in <code>images/python_app/demo/</code>.</p>
 <nav>
   <a href="#m1">Module 1 – actions</a>
   <a href="#hands">Objects in hands</a>
+  <a href="#demo">The filmed demo</a>
   <a href="#photos">The new photos</a>
   <a href="#upgrade">Before vs now</a>
   <a href="#depth">Scale from depth</a>
@@ -152,6 +160,52 @@
 <tr><td>two people side by side, one hand each, one of them missed every 3rd frame</td><td>their hands form a pair (one shared object) in 89 frames</td><td>never: one object each</td></tr>
 <tr><td>two people with both hands, missed in turn</td><td>at most 1 object for both of them, 86 changes</td><td>one object each, 2 changes</td></tr>
 </table></div>
+
+<h2 id="demo">The filmed demo</h2>
+<p>Frames from the recording of the live objects-in-hands demo, in Full HD (4 min 27 s, 15 October 2026), made with the command:</p>
+<pre class="cmd"><code>python ar_objects.py --out demo.mp4 --cycle 6 --alternate 3</code></pre>
+<p>Every image is a frame of the video, chosen among the sharpest ones and cropped only at the edges: without the app's status bar and without the rest of the room. The objects are drawn by the app in real time, at their real size. With both hands up, every object stayed 6 s in the hands (3 s harmonized and 3 s raw, with the harmonization on); the label shows the phase of each frame. The images open at full size with a click.</p>
+<h3>Harmonized and raw, at the same moment</h3>
+<div class="duo">
+  <figure><a href="images/python_app/demo/hippopotamus_harmonized.jpg"><img src="images/python_app/demo/hippopotamus_harmonized.jpg" alt="The hippopotamus William, harmonized" loading="lazy"></a><figcaption><span class="tag new">harmonized</span> The hippopotamus "William" (Egyptian faience, ~1961–1878 BCE, 11 cm) on the open palm.</figcaption></figure>
+  <figure><a href="images/python_app/demo/hippopotamus_raw.jpg"><img src="images/python_app/demo/hippopotamus_raw.jpg" alt="The hippopotamus William, raw" loading="lazy"></a><figcaption><span class="tag old">raw</span> The same moment, 0.13 s later, with the harmonization switched off (the H key): the colours of the museum photo.</figcaption></figure>
+</div>
+<div class="duo">
+  <figure><a href="images/python_app/demo/helmet_corinthian_harmonized.jpg"><img src="images/python_app/demo/helmet_corinthian_harmonized.jpg" alt="The Corinthian helmet, harmonized" loading="lazy"></a><figcaption><span class="tag new">harmonized</span> A Greek helmet of the Corinthian type (bronze, 5th century BCE, 31 cm), held with both hands.</figcaption></figure>
+  <figure><a href="images/python_app/demo/helmet_corinthian_raw.jpg"><img src="images/python_app/demo/helmet_corinthian_raw.jpg" alt="The Corinthian helmet, raw" loading="lazy"></a><figcaption><span class="tag old">raw</span> The same helmet 0.8 s later, in the raw phase of the automatic rhythm.</figcaption></figure>
+</div>
+<p>The difference comes from the scene's light: the harmonization takes on the light and contrast of the camera image and only a quarter of the colour change, and the grain of the object is the camera's noise; the painting and the details remain those of the museum photo.</p>
+<h3>In one hand</h3>
+<div class="shots">
+  <figure><a href="images/python_app/demo/aquamanile_lion.jpg"><img src="images/python_app/demo/aquamanile_lion.jpg" alt="Lion-shaped aquamanile" loading="lazy"></a><figcaption><span class="tag new">harmonized</span> A lion-shaped aquamanile (copper alloy, ~1200, 21 cm), on the open palm.</figcaption></figure>
+  <figure><a href="images/python_app/demo/helmet_burgonet.jpg"><img src="images/python_app/demo/helmet_burgonet.jpg" alt="Filippo Negroli's helmet" loading="lazy"></a><figcaption><span class="tag new">harmonized</span> Filippo Negroli's parade helmet (Milan, 1543, 24 cm).</figcaption></figure>
+  <figure><a href="images/python_app/demo/gauntlet.jpg"><img src="images/python_app/demo/gauntlet.jpg" alt="Armour gauntlet" loading="lazy"></a><figcaption><span class="tag new">harmonized</span> An armour gauntlet with gilded bands (Valentin Siebenbürger, Nuremberg, ~1535, 29 cm).</figcaption></figure>
+  <figure><a href="images/python_app/demo/pistol_flintlock.jpg"><img src="images/python_app/demo/pistol_flintlock.jpg" alt="Flintlock pistol" loading="lazy"></a><figcaption><span class="tag new">harmonized</span> A flintlock pistol (William Green, ~1700–1730, 32 cm).</figcaption></figure>
+  <figure><a href="images/python_app/demo/dagger_mughal.jpg"><img src="images/python_app/demo/dagger_mughal.jpg" alt="Mughal dagger" loading="lazy"></a><figcaption><span class="tag new">harmonized</span> A Mughal dagger with a jade horse-head hilt, in its sheath (49 cm), standing on the palm.</figcaption></figure>
+  <figure><a href="images/python_app/demo/war_hammer.jpg"><img src="images/python_app/demo/war_hammer.jpg" alt="War hammer" loading="lazy"></a><figcaption><span class="tag new">harmonized</span> A Saxon war hammer (mid-16th century, 57 cm), standing on the palm.</figcaption></figure>
+  <figure><a href="images/python_app/demo/javelin_japanese.jpg"><img src="images/python_app/demo/javelin_japanese.jpg" alt="Japanese javelin" loading="lazy"></a><figcaption><span class="tag new">harmonized</span> A short Japanese javelin, in its sheath (44 cm).</figcaption></figure>
+  <figure><a href="images/python_app/demo/spearhead_bronze.jpg"><img src="images/python_app/demo/spearhead_bronze.jpg" alt="Bronze spearhead" loading="lazy"></a><figcaption><span class="tag new">harmonized</span> A bronze spearhead (1200–800 BCE, 40 cm).</figcaption></figure>
+</div>
+<h3>One object in each hand</h3>
+<figure class="single"><a href="images/python_app/demo/two_hands_apart_hippopotamus_spearhead.jpg"><img src="images/python_app/demo/two_hands_apart_hippopotamus_spearhead.jpg" alt="Hands apart: the hippopotamus and the spearhead" loading="lazy"></a><figcaption><span class="tag old">raw</span> The hands more than 70 cm apart: one small object in each, the hippopotamus "William" and the bronze spearhead.</figcaption></figure>
+<h3>With both hands</h3>
+<div class="shots">
+  <figure><a href="images/python_app/demo/breastplate.jpg"><img src="images/python_app/demo/breastplate.jpg" alt="Giovan Paolo Negroli's breastplate" loading="lazy"></a><figcaption><span class="tag new">harmonized</span> Giovan Paolo Negroli's breastplate (Milan, ~1540–1545, 59 cm), held by its edges.</figcaption></figure>
+  <figure><a href="images/python_app/demo/shield_henry_ii.jpg"><img src="images/python_app/demo/shield_henry_ii.jpg" alt="The shield of Henry II" loading="lazy"></a><figcaption><span class="tag old">raw</span> The shield of King Henry II of France (~1555, 64 cm).</figcaption></figure>
+  <figure><a href="images/python_app/demo/shield_indian.jpg"><img src="images/python_app/demo/shield_indian.jpg" alt="Painted Indian shield" loading="lazy"></a><figcaption><span class="tag new">harmonized</span> A painted Indian shield (dhal, ~1800, 52 cm).</figcaption></figure>
+  <figure><a href="images/python_app/demo/helmet_morion.jpg"><img src="images/python_app/demo/helmet_morion.jpg" alt="Etched morion" loading="lazy"></a><figcaption><span class="tag new">harmonized</span> An etched morion (Brunswick, ~1560–1565, 32 cm).</figcaption></figure>
+  <figure><a href="images/python_app/demo/bust_roman.jpg"><img src="images/python_app/demo/bust_roman.jpg" alt="Roman marble bust" loading="lazy"></a><figcaption><span class="tag new">harmonized</span> A Roman marble bust (81–96 CE, 42 cm).</figcaption></figure>
+  <figure><a href="images/python_app/demo/shaffron_dutch.jpg"><img src="images/python_app/demo/shaffron_dutch.jpg" alt="Dutch horse-head defence" loading="lazy"></a><figcaption><span class="tag new">harmonized</span> A Dutch horse-head defence (~1620, 54 cm).</figcaption></figure>
+  <figure><a href="images/python_app/demo/shaffron_japanese.jpg"><img src="images/python_app/demo/shaffron_japanese.jpg" alt="Japanese horse-head defence" loading="lazy"></a><figcaption><span class="tag new">harmonized</span> A Japanese horse-head defence, with horns (19th century, 56 cm).</figcaption></figure>
+  <figure><a href="images/python_app/demo/armor_infantry.jpg"><img src="images/python_app/demo/armor_infantry.jpg" alt="Infantry armour" loading="lazy"></a><figcaption><span class="tag new">harmonized</span> An infantry armour (Nuremberg, ~1600, 125 cm): at its real size it goes out of the frame.</figcaption></figure>
+  <figure><a href="images/python_app/demo/amphora_red_figure.jpg"><img src="images/python_app/demo/amphora_red_figure.jpg" alt="Red-figure amphora" loading="lazy"></a><figcaption><span class="tag new">harmonized</span> A red-figure amphora (the Nikoxenos Painter, ~500 BCE, 46 cm).</figcaption></figure>
+  <figure><a href="images/python_app/demo/jar_terracotta.jpg"><img src="images/python_app/demo/jar_terracotta.jpg" alt="Cypriot amphora" loading="lazy"></a><figcaption><span class="tag new">harmonized</span> A Cypriot terracotta amphora (~1900–1600 BCE, 48 cm).</figcaption></figure>
+  <figure><a href="images/python_app/demo/amphora_large_attic.jpg"><img src="images/python_app/demo/amphora_large_attic.jpg" alt="Attic black-figure amphora" loading="lazy"></a><figcaption><span class="tag old">raw</span> An Attic black-figure amphora (the Antimenes Painter, ~530–520 BCE, 66 cm), held close to the camera.</figcaption></figure>
+</div>
+<div class="pair">
+  <figure><a href="images/python_app/demo/sword_ottoman.jpg"><img src="images/python_app/demo/sword_ottoman.jpg" alt="Sword with an Ottoman hilt" loading="lazy"></a><figcaption><span class="tag old">raw</span> A sword with an Ottoman hilt, in its scabbard (17th century, 102 cm), lying across the palms.</figcaption></figure>
+  <figure><a href="images/python_app/demo/sword_two_handed.jpg"><img src="images/python_app/demo/sword_two_handed.jpg" alt="Two-handed sword" loading="lazy"></a><figcaption><span class="tag new">harmonized</span> A two-handed sword (~1400–1450, 146 cm), lying across the palms: at its real size it extends beyond the frame.</figcaption></figure>
+</div>
 
 <h2 id="photos">Module 2 – The new photos</h2>
 <p>The old photos (low resolution, a vase photographed through a showcase) were replaced with studio photos of real vases from the Open Access collection of The Metropolitan Museum of Art – with a <b>known real height</b>, needed for the automatic scale – and with photos of museum halls from Wikimedia Commons, all reusable in academic work. The author and the licence of every image are in <a href="photos/CREDITS.md">photos/CREDITS.md</a>.</p>

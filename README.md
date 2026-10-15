@@ -6,7 +6,7 @@ A master's dissertation project with two modules joined by one theme: a system t
 - **Module 2 – Scene generation:** automatic cut-out of an object from a photo and its realistic placement in another background, with colour harmonization and a shadow. The use case demonstrated: museum objects placed in other halls.
 - **Modules 1 + 2 together:** in front of the camera, whoever holds out their hands gets a museum object in them, at its real size and harmonized with the camera image, in real time.
 
-The detailed results of both modules (figures and tables) are in `results.html`, also online: **[yustulinu.github.io/Disertation/results.html](https://yustulinu.github.io/Disertation/results.html)**.
+The detailed results of both modules (figures, tables and frames from the recording of the live demo) are in `results.html`, also online: **[yustulinu.github.io/Disertation/results.html](https://yustulinu.github.io/Disertation/results.html)**.
 
 ## Project structure
 
@@ -28,8 +28,9 @@ cpp_app/                 the live Qt 6 / C++ app: action recognition (ONNX Runti
 photos/                  the photos of Module 2: vases, weapons, armour, helmets, shields and other objects
                          from The Met Open Access collection (CC0), museum halls and a town square from
                          Wikimedia Commons; CREDITS.md lists the author and licence of every image
-images/                  app screenshots: python_app/ (the Python demos) and qt_cpp_app/ (the Qt/C++ app);
-                         the S key in the apps saves straight into these folders
+images/                  app screenshots: python_app/ (the Python demos; python_app/demo/: frames from the
+                         recording of the objects-in-hands demo, the gallery in results.html) and
+                         qt_cpp_app/ (the Qt/C++ app); the S key in the apps saves straight into these folders
 results.html             the results of both modules, with figures and tables (opens in a browser)
 ```
 

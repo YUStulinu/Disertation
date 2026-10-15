@@ -11,6 +11,6 @@ python_research/models/yolov8*-seg.pt
 python_research/models/sam2.1_b.pt
 python_research/models/RealESRGAN_x4plus.pth
 
-# Recordings of the live demo
+# Recordings of the live demo (python_research/demo.mp4: 250 MB, over GitHub's 100 MB limit per file;
+# its frames are in images/python_app/demo/)
 *.mp4
-images/python_app/demo/
